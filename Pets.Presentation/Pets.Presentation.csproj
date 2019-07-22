@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pets.Common\Pets.Common.csproj" />
+    <ProjectReference Include="..\Pets.DataAccess\Pets.DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>

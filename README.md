@@ -4,9 +4,9 @@ This is the companion repository for the "Introduction to Dependency Injection" 
 
 ## Overview
 
-This guide starts with a multi-tier application, then examines some of the architectural issues and investigates how dependency injection can help address these concerns.
+Dependency Injection (DI) is a set of software design principles and patterns that promote loosely coupled code.
 
-Dependency Injection (DI) is a set of software design principles and patters that promote loosely coupled code.
+This guide starts with a multi-tier application, then examines some of the architectural issues and investigates how dependency injection can help address these concerns.
 
 ### Benefits loose coupling
 
@@ -49,7 +49,7 @@ To verify what version of dotnet you have installed use `dotnet --version` on th
 
 ## Clone the Initial Project
 
-[introduction-to-dependency-injection](https://github.com/handsome-b-wonderful/introduction-to-dependency-injection.git)
+Clone this repository: [introduction-to-dependency-injection](https://github.com/handsome-b-wonderful/introduction-to-dependency-injection.git)
 
 ## Review the Solution Structure
 
@@ -57,20 +57,12 @@ To verify what version of dotnet you have installed use `dotnet --version` on th
 * __Pets.DataAccess__ is the data repository
 * __Pets.Presentation__ is the view model provider
 * __Pets.Viewer__ is the UI application
-* __Pets.Common__ common POCO entities
+* __Pets.Common__ includes common POCO entities
 
 ## Running the Example Application
 
 * Build the entire solution
-* open a new console window and navigate to `/Pets.Service`
+* open a new console window and navigate to the `/Pets.Service` directory
 * `dotnet run` to start the web service
 
 You can now run the __Pets.Viewer__ application and retrieve data from the service.
-
-
-
-
-
-
-
-
