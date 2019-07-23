@@ -2,22 +2,19 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6C7E3A31-1317-4905-961E-326809147A5D}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>Pets.Viewer</RootNamespace>
-    <AssemblyName>Pets.Viewer</AssemblyName>
+    <ProjectGuid>{F0CB14EC-2AD2-43A0-957E-4D7090F88271}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>Pets.Views</RootNamespace>
+    <AssemblyName>Pets.Views</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -27,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -52,17 +48,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="PetViewerWindow.xaml.cs">
+      <DependentUpon>PetViewerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -86,25 +74,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Pets.Common\Pets.Common.csproj">
       <Project>{d2956d01-d843-40f4-b311-27b96b01b194}</Project>
       <Name>Pets.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Pets.DataAccess\Pets.DataAccess.csproj">
-      <Project>{F609B67E-C125-42F7-BC0F-5F31D8FE7B77}</Project>
-      <Name>Pets.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pets.Presentation\Pets.Presentation.csproj">
       <Project>{0a746767-0f3d-4ee5-9d63-20cf8c52f5ee}</Project>
       <Name>Pets.Presentation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Pets.Views\Pets.Views.csproj">
-      <Project>{f0cb14ec-2ad2-43a0-957e-4d7090f88271}</Project>
-      <Name>Pets.Views</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="PetViewerWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
