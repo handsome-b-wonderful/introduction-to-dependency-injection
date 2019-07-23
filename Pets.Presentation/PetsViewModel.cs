@@ -5,17 +5,18 @@ using Pets.DataAccess;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Pets.Presentation
 {
     public class PetsViewModel : INotifyPropertyChanged
     {
-        protected ServiceReader DataReader;
+        protected IPetReader DataReader;
         private IEnumerable<Pet> _pets;
 
-        public PetsViewModel()
+        public PetsViewModel(IPetReader dataReader)
         {
-            DataReader = new ServiceReader();
+            DataReader = dataReader;
             _pets = new List<Pet>();
         }
 

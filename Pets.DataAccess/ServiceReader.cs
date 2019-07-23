@@ -5,7 +5,7 @@ using Pets.Common;
 
 namespace Pets.DataAccess
 {
-    public class ServiceReader
+    public class ServiceReader : IPetReader
     {
         WebClient client = new WebClient();
         private string baseUri = "http://localhost:9874/api/pets";

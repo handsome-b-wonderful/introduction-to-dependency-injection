@@ -8,10 +8,10 @@ namespace Pets.Viewer
     {
         PetsViewModel viewModel;
 
-        public PetViewerWindow()
+        public PetViewerWindow(PetsViewModel petsViewModel)
         {
             InitializeComponent();
-            viewModel = new PetsViewModel();
+            viewModel = petsViewModel;
             this.DataContext = viewModel;
         }
 
