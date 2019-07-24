@@ -15,12 +15,18 @@ namespace Pets.Viewer
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
-            Compose();
+			ComposeCsv();
             Application.Current.MainWindow.Show();
         }
 
-        private static void Compose()
+        private static void ComposeCsv()
+        {
+            var reader = new CsvReader();
+            var viewModel = new PetsViewModel(reader);
+            Application.Current.MainWindow = new PetViewerWindow(viewModel);
+        }
+
+        private static void ComposeService()
         {
             var reader = new ServiceReader();
             var viewModel = new PetsViewModel(reader);

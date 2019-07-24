@@ -10,11 +10,11 @@ This guide starts with a multi-tier application, then examines some of the archi
 
 ### Benefits loose coupling
 
-* easier to extend*
-* easier to test*
+* easier to extend
+* easier to test
 * easier to maintain
 * facilitates parallel development - less merge conflicts
-* facilitates late binding*
+* facilitates late binding
 
 ###	Patterns
 
@@ -24,11 +24,12 @@ This guide starts with a multi-tier application, then examines some of the archi
 * ambient context
 * service locator
 
+*indicates focus area of this talk
 
 ### Containers
 
-* [Autofac](https://autofac.org/)*
-* [Ninject](http://www.ninject.org/)*
+* [Autofac](https://autofac.org/)
+* [Ninject](http://www.ninject.org/)
 * [Unity Container](https://github.com/unitycontainer/unity)
 * [Castle Windsor](https://github.com/castleproject/Windsor)
 * [Spring.NET](http://www.springframework.net/doc-latest/reference/html/objects.html)
@@ -37,9 +38,6 @@ This guide starts with a multi-tier application, then examines some of the archi
 [The Ultimate List of .NET Dependency Injection Frameworks](https://www.claudiobernasconi.ch/2019/01/24/the-ultimate-list-of-net-dependency-injection-frameworks/)
 
 [List of .NET Dependency Injection Containers (IOC)](https://weblogs.asp.net/jhallal/list-of-net-dependency-injection-containers-ioc)
-
-
-*indicates focus area of this talk
 
 ## Prerequisites
 
@@ -66,3 +64,36 @@ Clone this repository: [introduction-to-dependency-injection](https://github.com
 * `dotnet run` to start the web service
 
 You can now run the __Pets.Viewer__ application and retrieve data from the service.
+
+If you wish to change out data sources, first ensure the backing data source is configured and setup correctly (examples: Csv file located in the executing assembly folder, Sql Server schema is created, populated and connection string defined), then update __App.xaml.cs__:
+
+````
+public partial class App : Application
+{
+	protected override void OnStartup(StartupEventArgs e)
+	{
+		base.OnStartup(e);
+
+		// remove the Service reader
+		// ComposeService();
+		
+		// replace with the Csv reader
+		ComposeCsv();
+		Application.Current.MainWindow.Show();
+	}
+
+	private static void ComposeCsv()
+	{
+		var reader = new CsvReader();
+		var viewModel = new PetsViewModel(reader);
+		Application.Current.MainWindow = new PetViewerWindow(viewModel);
+	}
+
+	private static void ComposeService()
+	{
+		var reader = new ServiceReader();
+		var viewModel = new PetsViewModel(reader);
+		Application.Current.MainWindow = new PetViewerWindow(viewModel);
+	}
+}
+````
