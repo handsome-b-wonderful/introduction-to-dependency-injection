@@ -15,8 +15,16 @@ namespace Pets.Viewer
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            ComposeSqlServer();
+            ComposeCachedService();
             Application.Current.MainWindow.Show();
+        }
+
+        private static void ComposeCachedService()
+        {
+            var baseReader = new ServiceReader();
+            var cacheReader = new CachingReader(baseReader);
+            var viewModel = new PetsViewModel(cacheReader);
+            Application.Current.MainWindow = new PetViewerWindow(viewModel);
         }
 
         private static void ComposeSqlServer()
