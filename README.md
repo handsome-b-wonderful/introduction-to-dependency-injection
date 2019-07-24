@@ -65,7 +65,11 @@ Clone this repository: [introduction-to-dependency-injection](https://github.com
 
 You can now run the __Pets.Viewer__ application and retrieve data from the service.
 
-If you wish to change out data sources, first ensure the backing data source is configured and setup correctly (examples: Csv file located in the executing assembly folder, Sql Server schema is created, populated and connection string defined), then update __App.xaml.cs__:
+If you wish to change out data sources:
+
+1. Retrieve the repository commit that includes the desired data reader
+2. Ensure the backing data source is configured and setup correctly (i.e. Sql Server schema is created, populated and connection string defined)
+3. Update __App.xaml.cs__ to pass in the target reader:
 
 ````
 public partial class App : Application
