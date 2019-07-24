@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="NPoco" Version="4.0.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.6.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Pets.Common\Pets.Common.csproj" />
-    <ProjectReference Include="..\Pets.Database\Pets.Database.csproj" />
   </ItemGroup>
 
 </Project>
