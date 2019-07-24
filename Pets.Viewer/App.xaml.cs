@@ -15,8 +15,15 @@ namespace Pets.Viewer
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-			ComposeCsv();
+            ComposeSqlServer();
             Application.Current.MainWindow.Show();
+        }
+
+        private static void ComposeSqlServer()
+        {
+            var reader = new SqlServerReader(ConfigurationManager.AppSettings["sqlServerConnectionString"]);
+            var viewModel = new PetsViewModel(reader);
+            Application.Current.MainWindow = new PetViewerWindow(viewModel);
         }
 
         private static void ComposeCsv()
