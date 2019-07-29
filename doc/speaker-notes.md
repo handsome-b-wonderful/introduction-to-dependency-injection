@@ -1,4 +1,4 @@
-# Dependency Injection
+# Introduction to Dependency Injection
 ### Speaker Notes
 July 2019 - Mark Dochstader
 time: ~ 45min
@@ -13,7 +13,7 @@ Injection => passing in the dependency (a service) into the object (client) and 
 
 Separates the creation of a client's dependencies from the client's behavior which promotes loose coupling
 
-__DI is a set of software design principles and patters that promote loosely coupled code__
+__DI is a set of software design principles and patterns that promote loosely coupled code__
 
 Benefits loose coupling:
 * easier to extend
@@ -224,7 +224,7 @@ __CRUD Repository__
 
 Interface Segregation Principle
 * Read
-* Write - not neaded
+* Write - not needed
 
 __Add__
 
@@ -984,4 +984,4 @@ Next Steps
 * Lifetime management
 * Injecting string and other primitives
 * Interception
-* Additional Patterns (Null Object, Proxy, Composite)
+* Additional Patterns: [Null Object](https://en.wikipedia.org/wiki/Null_object_pattern), [Proxy](https://en.wikipedia.org/wiki/Proxy_pattern), [Composite](https://en.wikipedia.org/wiki/Composite_pattern)
