@@ -21,7 +21,6 @@ This guide starts with a multi-tier application, then examines some of the archi
 * constructor injection*
 * property injection*
 * method injection
-* ambient context
 * service locator
 
 *indicates focus area of this talk
@@ -71,7 +70,7 @@ If you wish to change out data sources:
 2. Ensure the backing data source is configured and setup correctly (i.e. Sql Server schema is created, populated and connection string defined)
 3. Update __App.xaml.cs__ to pass in the target reader:
 
-````
+```csharp
 public partial class App : Application
 {
 	protected override void OnStartup(StartupEventArgs e)
@@ -100,4 +99,4 @@ public partial class App : Application
 		Application.Current.MainWindow = new PetViewerWindow(viewModel);
 	}
 }
-````
+```

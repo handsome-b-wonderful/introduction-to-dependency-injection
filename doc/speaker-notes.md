@@ -49,14 +49,13 @@ Patterns
 	* Preferred when all dependencies can be constructed first to ensure client object has a valid state.
 	* Can limit some flexibility but also beneficial moving towards an immutable & thread-safe object
 * Property Injection
-	* freedom to manipulate state of dependencies references at any time but can cause issues * with ensuring fully injected before use
+	* freedom to manipulate state of dependencies references at any time but can cause issues with ensuring fully injected before use
 * Method Injection / Interface Injection
 * Service Locator
 	* central registry known as the "service locator"
 	* on request returns the information necessary to perform a certain task
 	* can act as a simple run-time linker. 
-* Ambient Context
-	* similar to service locator for a single dependency. avoid constructor bloat for things that cross-cut, like logging context
+
 
 Containers
 * Autofac
@@ -95,7 +94,7 @@ __Tightly coupled code__
 
 __View__
 
-```
+```csharp
 public PetViewerWindow()
 {
 	InitializeComponent();
@@ -111,7 +110,7 @@ public PetViewerWindow()
 
 __View Model__
 
-```
+```csharp
 public PetsViewModel()
 {
 	DataReader = new ServiceReader();
@@ -124,7 +123,7 @@ public PetsViewModel()
 
 __Service Reader__
 
-```
+```csharp
 public class ServiceReader
 {
 	WebClient client = new WebClient();
@@ -151,7 +150,7 @@ Your boss says "Your new application is awesome! I just have a few changes..."
 1. Not everyone uses a JSON web service; we want to support different data sources
 2. We also want an *optional* client-side cache for performance
 
-```
+```csharp
 public PetsViewModel(string readerType)
 {
 	switch (readerType)
@@ -186,7 +185,7 @@ One reason to change - right now the front end does:
 
 3. We should add unit tests
 
-```
+```csharp
 [TestCase]
 public void OnRefreshPetsArePopulatedTest()
 {
@@ -228,7 +227,7 @@ Interface Segregation Principle
 
 __Add__
 
-```
+```csharp
 using System.Collections.Generic;
 
 namespace Pets.Common
@@ -242,7 +241,8 @@ namespace Pets.Common
 ```
 
 __Update__
-```
+
+```csharp
 namespace Pets.DataAccess
 {
     public class ServiceReader : IPetReader
@@ -251,7 +251,8 @@ namespace Pets.DataAccess
 ```
 
 __Update__
-```
+
+```csharp
 namespace Pets.Presentation
 {
     public class PetsViewModel : INotifyPropertyChanged
@@ -262,7 +263,7 @@ namespace Pets.Presentation
 
 ## Inject Dependencies
 
-```
+```csharp
 public class PetsViewModel : INotifyPropertyChanged
 {
     protected IPetReader DataReader;
@@ -276,7 +277,7 @@ public class PetsViewModel : INotifyPropertyChanged
 
 __Compile-time error__
 
-```
+```csharp
 public PetViewerWindow(PetsViewModel petsViewModel)
 {
     InitializeComponent();
@@ -285,7 +286,7 @@ public PetViewerWindow(PetsViewModel petsViewModel)
 
 __Runtime error__
 
-```
+```csharp
 <Application x:Class="Pets.Viewer.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -294,7 +295,7 @@ __Runtime error__
     >
 ```
 
-```
+```csharp
 using Pets.DataAccess;
 using Pets.Presentation;
 
@@ -339,7 +340,7 @@ Assembles components into an application with an entry point
 
 Create an interface for the file loader
 
-```
+```csharp
 namespace Pets.DataAccess
 {
     public interface ICsvFileLoader
@@ -351,7 +352,7 @@ namespace Pets.DataAccess
 
 Implement the file loader
 
-````
+```csharp
 using System.IO;
 
 namespace Pets.DataAccess
@@ -372,11 +373,11 @@ namespace Pets.DataAccess
         }
     }
 }
-````
+```
 
 Implement a new __IPetReader__ for CSV data
 
-````
+```csharp
 using Pets.Common;
 
 namespace Pets.DataAccess
@@ -403,11 +404,11 @@ namespace Pets.DataAccess
        ...
     }
 }
-````
+```
 
 Restructure the application startup
 
-````
+```csharp
 protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -428,7 +429,7 @@ protected override void OnStartup(StartupEventArgs e)
         {
             var reader = new ServiceReader();
             ...
-````
+```
 
 Run the application
 
@@ -444,7 +445,7 @@ The data repository uses a fluent mapping to populate the __Pet__ POCO in the re
 
 __Pets.Database/DataMappings.cs__
 
-````
+```csharp
 using NPoco.FluentMappings;
 using Pets.Common;
 
@@ -467,11 +468,11 @@ namespace Pets.Database
         }
     }
 }
-````
+```
 
 __Pets.Database/DataFactory.cs__
 
-````
+```csharp
 using System.Data.Common;
 using NPoco;
 using NPoco.FluentMappings;
@@ -495,11 +496,11 @@ namespace Pets.Database
         }
     }
 }
-````
+```
 
 __Pets.Database/PetRepository.cs__
 
-````
+```csharp
 using System;
 using System.Collections.Generic;
 using Pets.Common;
@@ -521,11 +522,11 @@ namespace Pets.Database
         }
     }
 }
-````
+```
 
 Add an Sql Reader __SqlServerReader.cs__ to the DataAccess project that implements the __IPetReader__ interface
 
-````
+```csharp
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -552,22 +553,22 @@ namespace Pets.DataAccess
         }
     }
 }
-````
+```
 
 Add a dependency to __Pets.DataAccess__ on the __Pets.Database.csproj__ project.
 
 Add a connection string to __Pets.Viewer/App.config__
 
-````
+```csharp
     <appSettings>
       <add key="sqlServerConnectionString" value="Server=SERVER;
         Database=DATABASE;User Id=USERID;Password=PASSWORD;"/>
     </appSettings>
-````
+```
 
 Restructure the application startup
 
-````
+```csharp
 protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -588,7 +589,7 @@ protected override void OnStartup(StartupEventArgs e)
         {
             var reader = new CsvReader();
             ...
-````
+```
 
 Run the application
 
@@ -602,7 +603,7 @@ Wraps an existing interface to add caching functionality
 
 Create a cache
 
-````
+```csharp
 namespace Pets.Common
 {
     public static class Caching
@@ -626,11 +627,11 @@ namespace Pets.Common
         }
     }
 }
-````
+```
 
 Create a caching reader that implements __IPetReader__
 
-````
+```csharp
 namespace Pets.DataAccess
 {
     public class CachingReader : IPetReader
@@ -661,11 +662,11 @@ namespace Pets.DataAccess
         }
     }
 }
-````
+```
 
 Restructure the application startup
 
-````
+```csharp
     public partial class App : Application
     {
         protected override void OnStartup(StartupEventArgs e)
@@ -683,7 +684,7 @@ Restructure the application startup
             Application.Current.MainWindow = new PetViewerWindow(viewModel);
         }
         ...
-````
+```
 
 * Start the Reader Service
 * Run the application
@@ -723,7 +724,7 @@ Add dependencies in test project on
 
 Create a Reader to enable isolated testing
 
-````
+```csharp
 using System.Collections.Generic;
 using System.Linq;
 using Pets.Common;
@@ -755,11 +756,11 @@ namespace Pets.Presentation.Tests
         }
     }
 }
-````
+```
 
 Write some Unit Tests
 
-````
+```csharp
 using System.Linq;
 using Xunit;
 
@@ -799,13 +800,13 @@ namespace Pets.Presentation.Tests
         }
     }
 }
-````
+```
 
 __Unit Testing the Csv Data Reader__
 
 In the __CsvReader__ class we new a CsvFileLoader
 
-````
+```csharp
     public class CsvReader : IPetReader
     {
         public ICsvFileLoader FileLoader { get; set; }
@@ -815,11 +816,11 @@ In the __CsvReader__ class we new a CsvFileLoader
             ...
             FileLoader = new CsvFileLoader(filePath);
         }
-````
+```
 
 The problem is the __FileLoader__ class contains:
 
-````
+```csharp
     ...
 
     public string LoadFile()
@@ -827,7 +828,7 @@ The problem is the __FileLoader__ class contains:
             using (var reader = new StreamReader(_filePath))
                 return reader.ReadToEnd();
         }
-````
+```
 
 
 Create a new xUnit Test Project (.NET Core) __Pets.DataAccess.Tests__
@@ -839,7 +840,7 @@ Add dependencies in test project on
 
 Add a class to manage some test data
 
-````
+```csharp
 using System;
 
 namespace Pets.DataAccess.Tests
@@ -857,11 +858,11 @@ namespace Pets.DataAccess.Tests
             "ANOTHER INVALID" + Environment.NewLine;
     }
 }
-````
+```
 
 Add a file loader __FakeFileLoader.cs__ that removes the dependency on the file system
 
-````
+```csharp
 public class FakeFileLoader : ICsvFileLoader
     {
         public enum  DataQuality
@@ -891,11 +892,11 @@ public class FakeFileLoader : ICsvFileLoader
             }
         }
     }
-````
+```
 
 Write some unit tests
 
-````
+```csharp
 public class CsvReaderTests
     {
         [Fact]
@@ -954,7 +955,7 @@ public class CsvReaderTests
             Assert.Empty(pets);
         }
     }
-````
+```
 
 Property Injection is good when
 
